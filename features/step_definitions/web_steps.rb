@@ -41,6 +41,13 @@ Given /^the blog is set up$/ do
                 :profile_id => 1,
                 :name => 'admin',
                 :state => 'active'})
+
+  User.create!({:login => 'nonadmin',
+                :password => '12345678',
+                :email => 'user@snow.com',
+                :profile_id => 2,
+                :name => 'nonadmin',
+                :state => 'active'})
 end
 
 And /^I am logged into the admin panel$/ do
@@ -276,3 +283,37 @@ end
 Then /^show me the page$/ do
   save_and_open_page
 end
+
+Given /^I am logged as (.*?) with password "(.*?)"$/ do |user, password|
+  visit '/accounts/login'
+  fill_in 'user_login', :with => user
+  fill_in 'user_password', :with => password
+  click_button 'Login'
+  if page.respond_to? :should
+    page.should have_content('Login successful')
+  else
+    assert page.has_content?('Login successful')
+  end
+  end
+
+Given /^I am at the "(.*?)" edit content page$/ do |arg1|
+  pending # express the regexp above with the code you wish you had
+end
+
+When /^I feel in "(.*?)" with "(.*?)" article id$/ do |arg1, arg2|
+  pending # express the regexp above with the code you wish you had
+end
+
+Then /^I should not see button "(.*?)"$/ do |arg1|
+  pending # express the regexp above with the code you wish you had
+end
+
+Given /^the following articles exist:$/ do |table|
+  # table is a Cucumber::Ast::Table
+  pending # express the regexp above with the code you wish you had
+end
+
+When /^I am at "(.*?)" edit content page$/ do |arg1|
+  pending # express the regexp above with the code you wish you had
+end
+
