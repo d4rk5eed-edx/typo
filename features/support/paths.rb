@@ -26,7 +26,8 @@ module NavigationHelpers
 
     when /^"(.*)" edit content page$/
       page_name =~ /^"(.*)" edit content page$/
-      edit_content_page Article.find_by_title($1)
+      id = Article.find_by_title($1).id
+      "/admin/content/edit/#{id}"
     else
       begin
         page_name =~ /^the (.*) page$/

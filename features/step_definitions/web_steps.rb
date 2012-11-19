@@ -297,7 +297,7 @@ Given /^I am logged as (.*?) with password "(.*?)"$/ do |user, password|
 end
 
 
-When /^I feel in "(.*?)" with "(.*?)" article id$/ do |input, title|
+When /^I feel in "(.*?)" with "(.*?)" article id$/ do |field, title|
   fill_in(field, :with => Article.find_by_name(title) )
 end
 
@@ -311,10 +311,19 @@ end
 
 Given /^the following articles exist:$/ do |table|
   # table is a Cucumber::Ast::Table
-  pending # express the regexp above with the code you wish you had
-end
-
-When /^I am at "(.*?)" edit content page$/ do |arg1|
-  pending # express the regexp above with the code you wish you had
+  table.hashes.each do |article|
+    article[:allow_comments] = true
+    article[:allow_pings] = true
+    article[:post_type] = "read" 
+    article[:published] = true 
+    article[:published_at] = "2012-06-09 21:51:55 UTC" 
+    article[:settings] = {"password"=>nil} 
+    article[:state] = "published" 
+    article[:text_filter_id] = 5 
+    article[:type] = "Article" 
+    article[:user_id] = User.find_by_name(article[:author])
+    
+    Article.create!(article)
+  end
 end
 
