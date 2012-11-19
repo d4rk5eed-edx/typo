@@ -7,7 +7,10 @@ Feature: Merge Articles
     Given the blog is set up
   Scenario: A non-admin can not merge articles
     Given I am logged as nonadmin with password "12345678"
-    And I am at the "Hello world" edit content page
+    And the following articles exist:
+    | title           | body                                    | author    |
+    | Hello world     | Lorem ipsum                             | nonadmin  |
+    When I am on "Hello world" edit content page
     Then I should not see "Merge Articles"
     And I should not see button "Merge"
 
@@ -17,7 +20,7 @@ Feature: Merge Articles
     | Hello world     | Lorem ipsum                             | nonadmin  |
     | Hello new world | Vestibulum fringilla elementum commodo  | nonadmin  |
     And I am logged into the admin panel
-    When I am at "Hello world" edit content page
+    When I am on "Hello world" edit content page
     And I feel in "merge_with" with "Hello new world" article id
     When I press "Merge"
     Then I should be on "Hello world" edit content page

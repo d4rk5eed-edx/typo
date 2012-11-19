@@ -294,18 +294,19 @@ Given /^I am logged as (.*?) with password "(.*?)"$/ do |user, password|
   else
     assert page.has_content?('Login successful')
   end
-  end
-
-Given /^I am at the "(.*?)" edit content page$/ do |arg1|
-  pending # express the regexp above with the code you wish you had
 end
 
-When /^I feel in "(.*?)" with "(.*?)" article id$/ do |arg1, arg2|
-  pending # express the regexp above with the code you wish you had
+
+When /^I feel in "(.*?)" with "(.*?)" article id$/ do |input, title|
+  fill_in(field, :with => Article.find_by_name(title) )
 end
 
-Then /^I should not see button "(.*?)"$/ do |arg1|
-  pending # express the regexp above with the code you wish you had
+Then /^I should not see button "(.*?)"$/ do |text|
+  if page.respond_to? :should
+    page.should have_no_xpath("//input[@type='submit' and @value='#{text}']")
+  else
+    assert page.has_no_xpath?("//input[@type='submit' and @value='#{text}']")
+  end  
 end
 
 Given /^the following articles exist:$/ do |table|

@@ -24,6 +24,9 @@ module NavigationHelpers
     #   when /^(.*)'s profile page$/i
     #     user_profile_path(User.find_by_login($1))
 
+    when /^"(.*)" edit content page$/
+      page_name =~ /^"(.*)" edit content page$/
+      edit_content_page Article.find_by_title($1)
     else
       begin
         page_name =~ /^the (.*) page$/
