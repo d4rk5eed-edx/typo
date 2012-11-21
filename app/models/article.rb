@@ -25,6 +25,8 @@ class Article < Content
 
   has_many :comments,   :dependent => :destroy, :order => "created_at ASC" do
 
+  has_many :articles,   :dependent => :destroy
+
     # Get only ham or presumed_ham comments
     def ham
       find :all, :conditions => {:state => ["presumed_ham", "ham"]}
